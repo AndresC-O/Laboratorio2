@@ -10,4 +10,20 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
     </properties>
+    <dependencias>
+	<dependencia>
+		<groupId> org.projectlombok </groupId>
+		<artifactId> lombok </artifactId>
+		<version> 1.18.16 </version>
+		<scope> proporcionado </scope>
+	</dependencia>
+</dependencias>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>
