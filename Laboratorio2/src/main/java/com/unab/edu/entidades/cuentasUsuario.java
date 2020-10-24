@@ -6,11 +6,15 @@
 package com.unab.edu.entidades;
 
 import java.util.Date;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
  * @author CruzCalles
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class cuentasUsuario extends usuario{
     protected int idCuentasUsuario;
     protected double saldo;
