@@ -121,7 +121,7 @@ public class FrmLogin extends javax.swing.JFrame {
         cmbTipoUsuario.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("LOG IN");
 
         javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
@@ -135,9 +135,6 @@ public class FrmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,6 +142,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnPrincipalLayout.createSequentialGroup()
                         .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -205,7 +203,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         String user = txtUsuario.getText();
         String Pass = String.valueOf(txtPassword.getText());
-        int combo = contador;
+        int combo = cmbTipoUsuario.getSelectedIndex();
         
         if(txtUsuario.getText().isEmpty() || txtPassword.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "¡Complete todos los campos para continuar!");
@@ -215,9 +213,16 @@ public class FrmLogin extends javax.swing.JFrame {
             var consulta = clsUsua.LoguinUsuario(user, Pass, combo);
             
             if(consulta == true){
+                if(cmbTipoUsuario.getSelectedIndex() == 1){
+                    JOptionPane.showMessageDialog(null, "¡Bienvenido administrador: " + user + "!");
+                    FrmAdministrador admin = new FrmAdministrador();
+                    admin.setVisible(true);
+                    this.dispose();
+                }
+                else if(cmbTipoUsuario.getSelectedIndex() == 2){
+                    JOptionPane.showMessageDialog(null, "¡Bienvenido usuario: " + user + "!");
+                }
                 
-
-                JOptionPane.showMessageDialog(null, "¡Bienvenido " + user + "!");
             }
             else{
                 JOptionPane.showMessageDialog(null,"¡Verifique los datos ingresados!");
