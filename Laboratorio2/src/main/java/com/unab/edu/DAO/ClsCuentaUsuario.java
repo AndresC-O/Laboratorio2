@@ -24,12 +24,12 @@ public class ClsCuentaUsuario {
     ConexionBd conexion = new ConexionBd();
     Connection con = conexion.RetornarConexion();
     
-    public ArrayList<cuentasUsuario>MostrarCuentas() {
+    public ArrayList<cuentasUsuario>MostrarCuentas(cuentasUsuario cuentas) {
     ArrayList<cuentasUsuario> List = new ArrayList<>();
     
     try {
-            CallableStatement st = con.prepareCall("call SP_S_CUENTASUSUARIO ()");
-
+            CallableStatement st = con.prepareCall("call SP_S_CUENTASUSUARIO (?)");
+            st.setInt("PIdUsuario", cuentas.getIdUsuario());
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 cuentasUsuario es = new cuentasUsuario();

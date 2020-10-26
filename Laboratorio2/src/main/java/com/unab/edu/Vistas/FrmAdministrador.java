@@ -23,11 +23,10 @@ public class FrmAdministrador extends javax.swing.JFrame {
     /**
      * Creates new form FrmAdministrador
      */
-    public static String recibo;
     public FrmAdministrador() {
         initComponents();
         this.setLocationRelativeTo(null);
-        lblReciboUsuario.setText(recibo);
+        lblReciboUsuario.setText(FrmLogin.ennvioUsuario);
         
         Calendar cal = Calendar.getInstance();
         jdcFecha.setCalendar(cal);

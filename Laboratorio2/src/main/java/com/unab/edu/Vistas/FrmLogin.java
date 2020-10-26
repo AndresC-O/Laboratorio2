@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    public static String ennvioUsuario;
+    
     
     public FrmLogin() {
         initComponents();
@@ -198,6 +198,7 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static String ennvioUsuario;
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
         String user = txtUsuario.getText();
@@ -214,6 +215,7 @@ public class FrmLogin extends javax.swing.JFrame {
             if(consulta == true){
                 if(cmbTipoUsuario.getSelectedIndex() == 1){
                     JOptionPane.showMessageDialog(null, "¡Bienvenido administrador: " + user + "!");
+                    ennvioUsuario = user;
                     FrmAdministrador admin = new FrmAdministrador();
                     admin.setVisible(true);
                     this.dispose();
