@@ -17,7 +17,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class cuentasUsuario extends usuario{
     protected int idCuentasUsuario;
-    protected double saldo;
+    public double saldo;
     protected int transaccion;
-    protected Date fecha;
 }

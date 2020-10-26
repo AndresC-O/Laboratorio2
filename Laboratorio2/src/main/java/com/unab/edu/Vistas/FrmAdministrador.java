@@ -5,10 +5,12 @@
  */
 package com.unab.edu.Vistas;
 
-import com.toedter.calendar.JCalendar;
-import com.unab.edu.DAO.ClsAdministrador;
+
+import com.unab.edu.DAO.ClsUsuario;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
+import com.unab.edu.entidades.usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,6 +30,30 @@ public class FrmAdministrador extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance();
         jDateChooser1.setCalendar(cal);
     }
+    
+    String valueMember[];
+    int contador = 1;
+
+    public void DisplayMember() {
+
+        DefaultComboBoxModel cbdefault = new DefaultComboBoxModel();
+        ClsUsuario clsusuario = new ClsUsuario();
+        ArrayList<usuario> users = clsusuario.ListadoUSUARIOS();
+        valueMember = new String[users.size() + 1];
+
+        String Filas[] = new String[5];
+        cbdefault.addElement("");
+        for (var iterar : users) {
+
+            Filas[0] = String.valueOf(iterar.getIdUsuario());
+            Filas[1] = iterar.getUsuario();
+            valueMember[contador] = Filas[0];
+            cbdefault.addElement(Filas[1]);
+            contador++;
+        }
+
+        cmbUsuario.setModel(cbdefault);
+    }
 
 
     /**
@@ -43,14 +69,15 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         lblImagen = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         pnPrincipal = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
+        txtAbono = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        btnEntrar = new javax.swing.JButton();
-        cmbTipoUsuario = new javax.swing.JComboBox<>();
+        btnEnviar = new javax.swing.JButton();
+        cmbUsuario = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         lblReciboUsuario = new javax.swing.JLabel();
@@ -85,6 +112,8 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
         lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bank.png"))); // NOI18N
 
+        jTextField1.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setForeground(new java.awt.Color(0, 102, 102));
@@ -96,13 +125,13 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("WELCOME ADMIN:");
 
-        txtUsuario.setBackground(new java.awt.Color(0, 102, 102));
-        txtUsuario.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtUsuario.setBorder(null);
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtAbono.setBackground(new java.awt.Color(0, 102, 102));
+        txtAbono.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtAbono.setForeground(new java.awt.Color(255, 255, 255));
+        txtAbono.setBorder(null);
+        txtAbono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
+                txtAbonoActionPerformed(evt);
             }
         });
 
@@ -114,17 +143,22 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
-        btnEntrar.setBackground(new java.awt.Color(0, 102, 102));
-        btnEntrar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btnEntrar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEntrar.setText("Enviar");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviar.setBackground(new java.awt.Color(0, 102, 102));
+        btnEnviar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        btnEnviar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
+                btnEnviarActionPerformed(evt);
             }
         });
 
-        cmbTipoUsuario.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        cmbUsuario.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        cmbUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(0, 102, 102));
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -149,13 +183,13 @@ public class FrmAdministrador extends javax.swing.JFrame {
                     .addGroup(pnPrincipalLayout.createSequentialGroup()
                         .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnPrincipalLayout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addGap(2, 2, 2)
-                                    .addComponent(txtUsuario))
+                                    .addComponent(txtAbono))
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnPrincipalLayout.createSequentialGroup()
@@ -166,7 +200,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         pnPrincipalLayout.setVerticalGroup(
@@ -178,20 +212,20 @@ public class FrmAdministrador extends javax.swing.JFrame {
                     .addComponent(lblReciboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -199,13 +233,17 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(75, 75, 75))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,15 +260,22 @@ public class FrmAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        int combo = cmbUsuario.getSelectedIndex();
         
         
         
-    }//GEN-LAST:event_btnEntrarActionPerformed
+     
+        
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+    private void txtAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAbonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    }//GEN-LAST:event_txtAbonoActionPerformed
+
+    private void cmbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,8 +313,8 @@ public class FrmAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEntrar;
-    private javax.swing.JComboBox<String> cmbTipoUsuario;
+    private javax.swing.JButton btnEnviar;
+    private javax.swing.JComboBox<String> cmbUsuario;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -280,9 +325,10 @@ public class FrmAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblReciboUsuario;
     private javax.swing.JPanel pnPrincipal;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtAbono;
     // End of variables declaration//GEN-END:variables
 }

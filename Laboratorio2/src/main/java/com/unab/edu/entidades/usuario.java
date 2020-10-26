@@ -17,6 +17,5 @@ public class usuario extends tipoUsuario{
     protected int idUsuario;
     protected String Usuario;
     protected String Pass;
-    int tipoUsuario;
     
 }

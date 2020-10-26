@@ -65,5 +65,26 @@ public class ClsUsuario {
         }
         return false;
     }
-
+    
+    public ArrayList<usuario> ListadoUSUARIOS(){
+        ArrayList<usuario> Lista = new ArrayList<>();
+        
+        try {
+            
+            CallableStatement consulta = con.prepareCall("call SP_S_SOLOUSUARIOS()");
+            ResultSet rs = consulta.executeQuery();
+            while(rs.next()){
+                usuario user = new usuario();
+                user.setIdUsuario(rs.getInt("idUsuario"));
+                user.setUsuario(rs.getString("Usuario"));
+                user.setPass(rs.getString("Pass"));
+                user.setIdTipoUsuario(rs.getInt("tipoUsuario"));
+                Lista.add(user);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en: \n\n\n\n" + e);
+        }
+        
+        return Lista;
+    }
 }
