@@ -46,6 +46,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         tb_Historial.setModel(ModeloTabla);
     
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
