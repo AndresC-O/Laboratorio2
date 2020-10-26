@@ -265,7 +265,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
         cuentasUsuario cuentas = new cuentasUsuario();
         
         cuentas.setSaldo(Double.parseDouble(txtAbono.getText()));
-        cuentas.setIdUsuario(cmbUsuario.getSelectedIndex());
+        cuentas.setIdUsuario(Integer.parseInt(valueMember[cmbUsuario.getSelectedIndex()]));
         cuentas.setTransaccion(1);
         cuentas.setFecha(jdcFecha.getDate());
         clsCuentas.AgregarCuentasUsuario(cuentas);

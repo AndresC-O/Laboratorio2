@@ -203,7 +203,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         String user = txtUsuario.getText();
         String Pass = String.valueOf(txtPassword.getText());
-        int combo = cmbTipoUsuario.getSelectedIndex();
+        int combo = Integer.parseInt(valueMember[cmbTipoUsuario.getSelectedIndex()]);
         
         if(txtUsuario.getText().isEmpty() || txtPassword.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "¡Complete todos los campos para continuar!");
@@ -213,14 +213,14 @@ public class FrmLogin extends javax.swing.JFrame {
             var consulta = clsUsua.LoguinUsuario(user, Pass, combo);
             
             if(consulta == true){
-                if(cmbTipoUsuario.getSelectedIndex() == 1){
+                if(combo == 1){
                     JOptionPane.showMessageDialog(null, "¡Bienvenido administrador: " + user + "!");
                     ennvioUsuario = user;
                     FrmAdministrador admin = new FrmAdministrador();
                     admin.setVisible(true);
                     this.dispose();
                 }
-                else if(cmbTipoUsuario.getSelectedIndex() == 2){
+                else if(combo == 2){
                     JOptionPane.showMessageDialog(null, "¡Bienvenido usuario: " + user + "!");
                     FrmUsuario usuar = new FrmUsuario();
                     usuar.setVisible(true);
