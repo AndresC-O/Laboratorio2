@@ -6,7 +6,9 @@
 package com.unab.edu.Vistas;
 
 
+import com.unab.edu.DAO.ClsCuentaUsuario;
 import com.unab.edu.DAO.ClsUsuario;
+import com.unab.edu.entidades.cuentasUsuario;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import com.unab.edu.entidades.usuario;
@@ -28,7 +30,8 @@ public class FrmAdministrador extends javax.swing.JFrame {
         lblReciboUsuario.setText(recibo);
         
         Calendar cal = Calendar.getInstance();
-        jDateChooser1.setCalendar(cal);
+        jdcFecha.setCalendar(cal);
+        DisplayMember();
     }
     
     String valueMember[];
@@ -78,7 +81,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btnEnviar = new javax.swing.JButton();
         cmbUsuario = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdcFecha = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         lblReciboUsuario = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -121,7 +124,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
         pnPrincipal.setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("WELCOME ADMIN:");
 
@@ -160,13 +163,15 @@ public class FrmAdministrador extends javax.swing.JFrame {
             }
         });
 
+        jdcFecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+
         jLabel4.setBackground(new java.awt.Color(0, 102, 102));
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cantidad a abonar");
 
         lblReciboUsuario.setBackground(new java.awt.Color(0, 102, 102));
-        lblReciboUsuario.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        lblReciboUsuario.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblReciboUsuario.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -194,31 +199,26 @@ public class FrmAdministrador extends javax.swing.JFrame {
                                     .addGap(2, 2, 2)
                                     .addComponent(txtAbono))
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnPrincipalLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(69, 69, 69)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel4))
+                        .addGap(0, 243, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEnviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144))
         );
         pnPrincipalLayout.setVerticalGroup(
             pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnPrincipalLayout.createSequentialGroup()
-                        .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblReciboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
-                    .addGroup(pnPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblReciboUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,9 +229,9 @@ public class FrmAdministrador extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(80, 80, 80)
                 .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -260,12 +260,16 @@ public class FrmAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        int combo = cmbUsuario.getSelectedIndex();
+
         
+        ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
+        cuentasUsuario cuentas = new cuentasUsuario();
         
-        
-     
-        
+        cuentas.setSaldo(Double.parseDouble(txtAbono.getText()));
+        cuentas.setIdUsuario(cmbUsuario.getSelectedIndex());
+        cuentas.setTransaccion(1);
+        cuentas.setFecha(jdcFecha.getDate());
+        clsCuentas.AgregarCuentasUsuario(cuentas);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void txtAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAbonoActionPerformed
@@ -314,7 +318,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
     private javax.swing.JComboBox<String> cmbUsuario;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,6 +328,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblReciboUsuario;
     private javax.swing.JPanel pnPrincipal;

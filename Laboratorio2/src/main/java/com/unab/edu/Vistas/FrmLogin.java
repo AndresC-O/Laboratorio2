@@ -220,6 +220,9 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
                 else if(cmbTipoUsuario.getSelectedIndex() == 2){
                     JOptionPane.showMessageDialog(null, "¡Bienvenido usuario: " + user + "!");
+                    FrmUsuario usuar = new FrmUsuario();
+                    usuar.setVisible(true);
+                    this.dispose();
                 }
                 
             }

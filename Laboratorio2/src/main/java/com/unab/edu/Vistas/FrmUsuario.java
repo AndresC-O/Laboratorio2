@@ -22,6 +22,7 @@ public class FrmUsuario extends javax.swing.JFrame {
      */
     public FrmUsuario() {
         initComponents();
+        this.setLocationRelativeTo(null);
         Mostrartabla();
     }
     SimpleDateFormat formato = new SimpleDateFormat("d MMM y");
@@ -37,7 +38,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             filas[1] = String.valueOf(DatosCuenta.getTransaccion());
 
             if (DatosCuenta.getFecha() == null) {
-                filas[2] = "NO HAY DATOS";
+                filas[2] = "--/--/--";
             } else {
                 filas[2] = String.valueOf(formato.format(DatosCuenta.getFecha()));
             }
