@@ -19,4 +19,5 @@ public class cuentasUsuario extends usuario{
     protected int idCuentasUsuario;
     public double saldo;
     protected int transaccion;
+    protected Date fecha;
 }
