@@ -25,8 +25,8 @@ public class FrmUsuario extends javax.swing.JFrame {
     public FrmUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
-
         Mostrartabla();
+        CalcularTotal();
     }
     SimpleDateFormat formato = new SimpleDateFormat("d MMM y");
 
@@ -55,6 +55,23 @@ public class FrmUsuario extends javax.swing.JFrame {
         tb_Historial.setModel(ModeloTabla);
     }
 
+    String Verificar;
+    Double Total;
+    void CalcularTotal() {
+        Total = 0.00;
+        for (int i = 0; i < tb_Historial.getRowCount(); i++) {
+
+            Verificar = String.valueOf(tb_Historial.getValueAt(i, 1));
+
+            if (Verificar.equals("Abono")) {
+                Total += Double.parseDouble(String.valueOf(tb_Historial.getValueAt(i, 0)));
+            } else if (Verificar.equals("Cargo")) {
+                Total -= Double.parseDouble(String.valueOf(tb_Historial.getValueAt(i, 0)));
+            }
+
+        }
+        lblTotalCuenta.setText(String.valueOf(Total));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,6 +273,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                     cuentas.setFecha(date);
                     clsCuentas.AgregarCuentasUsuario(cuentas);
                     Mostrartabla();
+                    CalcularTotal();
                 } else if (opcion == JOptionPane.NO_OPTION) {
                     System.out.println("¡Cancelado!");
                 }
@@ -266,6 +284,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRetirarActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
