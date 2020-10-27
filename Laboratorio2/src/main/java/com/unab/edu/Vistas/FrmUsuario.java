@@ -9,6 +9,8 @@ import com.unab.edu.DAO.ClsCuentaUsuario;
 import com.unab.edu.entidades.cuentasUsuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,31 +25,34 @@ public class FrmUsuario extends javax.swing.JFrame {
     public FrmUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
+
         Mostrartabla();
     }
     SimpleDateFormat formato = new SimpleDateFormat("d MMM y");
-    
-    void Mostrartabla (){
-    String TITULOS[] = {"SALDO", "TRANSACCION", "FECHA"};
-    DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
-    ClsCuentaUsuario claseCuenta = new ClsCuentaUsuario();
-    cuentasUsuario cuenta = new cuentasUsuario();
-    cuenta.setIdUsuario(FrmLogin.envioID);
-    ArrayList<cuentasUsuario> USU = claseCuenta.MostrarCuentas(cuenta);
-    String filas [] = new String [4];
-    for (var DatosCuenta : USU) {
+
+    void Mostrartabla() {
+        String TITULOS[] = {"SALDO", "TRANSACCION", "FECHA"};
+        DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
+        ClsCuentaUsuario claseCuenta = new ClsCuentaUsuario();
+        cuentasUsuario cuenta = new cuentasUsuario();
+        cuenta.setIdUsuario(FrmLogin.envioID);
+        ArrayList<cuentasUsuario> USU = claseCuenta.MostrarCuentas(cuenta);
+        String filas[] = new String[4];
+
+        for (var DatosCuenta : USU) {
             filas[0] = String.valueOf(DatosCuenta.getSaldo());
             filas[1] = String.valueOf(DatosCuenta.getTransaccion());
+            filas[2] = String.valueOf(formato.format(DatosCuenta.getFecha()));
 
-            if (DatosCuenta.getFecha() == null) {
-                filas[2] = "--/--/--";
-            } else {
-                filas[2] = String.valueOf(formato.format(DatosCuenta.getFecha()));
+            if (DatosCuenta.getTransaccion() == 1) {
+                filas[1] = "Abono";
+            } else if (DatosCuenta.getTransaccion() == 2) {
+                filas[1] = "Cargo";
             }
             ModeloTabla.addRow(filas);
         }
+
         tb_Historial.setModel(ModeloTabla);
-    
     }
 
     /**
@@ -227,8 +232,38 @@ public class FrmUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRetiroActionPerformed
 
+    Double cantidadARetirar;
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
 
+        if (txtRetiro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "¡No se permiten datos vacíos!");
+        } else {
+            cantidadARetirar = Double.parseDouble(txtRetiro.getText());
+
+            if (cantidadARetirar % 5 == 0) {
+
+                Date date = new Date();
+                ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
+                cuentasUsuario cuentas = new cuentasUsuario();
+
+                String botones[] = {"Cerrar", "Cancelar"};
+                int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que quieres retirar $" + cantidadARetirar + "?", "Confirmar", 0, 0, null, botones, this);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    cuentas.setSaldo(cantidadARetirar);
+                    cuentas.setIdUsuario(FrmLogin.envioID);
+                    cuentas.setTransaccion(2);
+                    cuentas.setFecha(date);
+                    clsCuentas.AgregarCuentasUsuario(cuentas);
+                    Mostrartabla();
+                } else if (opcion == JOptionPane.NO_OPTION) {
+                    System.out.println("¡Cancelado!");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "¡Sólo puedes sacar cantidades como 5,10,15!");
+            }
+        }
     }//GEN-LAST:event_btnRetirarActionPerformed
 
     /**
