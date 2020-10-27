@@ -199,6 +199,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static String ennvioUsuario;
+    public static int envioID;
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
         String user = txtUsuario.getText();
@@ -211,6 +212,7 @@ public class FrmLogin extends javax.swing.JFrame {
         else{
             ClsUsuario clsUsua = new ClsUsuario();
             var consulta = clsUsua.LoguinUsuario(user, Pass, combo);
+            var obtengoID = clsUsua.ObtenerID(user, Pass, combo);
             
             if(consulta == true){
                 if(combo == 1){
@@ -222,6 +224,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
                 else if(combo == 2){
                     JOptionPane.showMessageDialog(null, "¡Bienvenido usuario: " + user + "!");
+                    envioID = obtengoID;
                     FrmUsuario usuar = new FrmUsuario();
                     usuar.setVisible(true);
                     this.dispose();

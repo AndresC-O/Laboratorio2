@@ -32,7 +32,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
     ClsCuentaUsuario claseCuenta = new ClsCuentaUsuario();
     cuentasUsuario cuenta = new cuentasUsuario();
-    cuenta.setIdUsuario(3);
+    cuenta.setIdUsuario(FrmLogin.envioID);
     ArrayList<cuentasUsuario> USU = claseCuenta.MostrarCuentas(cuenta);
     String filas [] = new String [4];
     for (var DatosCuenta : USU) {

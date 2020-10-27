@@ -65,15 +65,15 @@ public class ClsUsuario {
         }
         return false;
     }
-    
-    public ArrayList<usuario> ListadoUSUARIOS(){
+
+    public ArrayList<usuario> ListadoUSUARIOS() {
         ArrayList<usuario> Lista = new ArrayList<>();
-        
+
         try {
-            
+
             CallableStatement consulta = con.prepareCall("call SP_S_SOLOUSUARIOS()");
             ResultSet rs = consulta.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 usuario user = new usuario();
                 user.setIdUsuario(rs.getInt("idUsuario"));
                 user.setUsuario(rs.getString("Usuario"));
@@ -84,7 +84,28 @@ public class ClsUsuario {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error en: \n\n\n\n" + e);
         }
-        
+
         return Lista;
+    }
+
+    public int ObtenerID(String Usuario, String Password, int TipoUsuario) {
+
+        int ID = 0;
+
+        try {
+            CallableStatement Statement = con.prepareCall("call SP_S_LOGIN(?,?,?)");
+            Statement.setString("PUsuario", Usuario);
+            Statement.setString("PPass", Password);
+            Statement.setInt("PTipoUsuario", TipoUsuario);
+            ResultSet rs = Statement.executeQuery();
+            while (rs.next()) {
+
+                ID = rs.getInt("idUsuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en: \n\n\n\n" + e);
+        }
+
+        return ID;
     }
 }
