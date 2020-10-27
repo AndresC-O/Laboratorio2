@@ -57,6 +57,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
     String Verificar;
     Double Total;
+
     void CalcularTotal() {
         Total = 0.00;
         for (int i = 0; i < tb_Historial.getRowCount(); i++) {
@@ -72,6 +73,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         }
         lblTotalCuenta.setText(String.valueOf(Total));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -250,41 +252,46 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRetiroActionPerformed
 
     Double cantidadARetirar;
+    Double saldo;
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
 
         if (txtRetiro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡No se permiten datos vacíos!");
         } else {
             cantidadARetirar = Double.parseDouble(txtRetiro.getText());
+            saldo = Double.parseDouble(lblTotalCuenta.getText());
 
-            if (cantidadARetirar % 5 == 0) {
+            if (saldo < cantidadARetirar || cantidadARetirar == 0 || cantidadARetirar < 0) {
+                JOptionPane.showMessageDialog(null, "¡No se puede hacer el retiro!");
+            }else {
+                if (cantidadARetirar % 5 == 0) {
 
-                Date date = new Date();
-                ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
-                cuentasUsuario cuentas = new cuentasUsuario();
+                    Date date = new Date();
+                    ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
+                    cuentasUsuario cuentas = new cuentasUsuario();
 
-                String botones[] = {"Cerrar", "Cancelar"};
-                int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que quieres retirar $" + cantidadARetirar + "?", "Confirmar", 0, 0, null, botones, this);
+                    String botones[] = {"Cerrar", "Cancelar"};
+                    int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que quieres retirar $" + cantidadARetirar + "?", "Confirmar", 0, 0, null, botones, this);
 
-                if (opcion == JOptionPane.YES_OPTION) {
-                    cuentas.setSaldo(cantidadARetirar);
-                    cuentas.setIdUsuario(FrmLogin.envioID);
-                    cuentas.setTransaccion(2);
-                    cuentas.setFecha(date);
-                    clsCuentas.AgregarCuentasUsuario(cuentas);
-                    Mostrartabla();
-                    CalcularTotal();
-                } else if (opcion == JOptionPane.NO_OPTION) {
-                    System.out.println("¡Cancelado!");
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        cuentas.setSaldo(cantidadARetirar);
+                        cuentas.setIdUsuario(FrmLogin.envioID);
+                        cuentas.setTransaccion(2);
+                        cuentas.setFecha(date);
+                        clsCuentas.AgregarCuentasUsuario(cuentas);
+                        Mostrartabla();
+                        CalcularTotal();
+                    } else if (opcion == JOptionPane.NO_OPTION) {
+                        System.out.println("¡Cancelado!");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "¡Sólo puedes sacar cantidades como 5,10,15!");
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "¡Sólo puedes sacar cantidades como 5,10,15!");
             }
         }
     }//GEN-LAST:event_btnRetirarActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
