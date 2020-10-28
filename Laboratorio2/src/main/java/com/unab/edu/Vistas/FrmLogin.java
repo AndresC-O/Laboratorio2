@@ -206,7 +206,7 @@ public class FrmLogin extends javax.swing.JFrame {
         String Pass = String.valueOf(txtPassword.getText());
         int combo = Integer.parseInt(valueMember[cmbTipoUsuario.getSelectedIndex()]);
         
-        if(txtUsuario.getText().isEmpty() || txtPassword.getText().isEmpty()){
+        if(txtUsuario.getText().isEmpty() || txtPassword.getText().isEmpty() || combo < 1){
             JOptionPane.showMessageDialog(null, "¡Complete todos los campos para continuar!");
         }
         else{

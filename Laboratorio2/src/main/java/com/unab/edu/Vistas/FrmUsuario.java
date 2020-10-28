@@ -96,6 +96,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_Historial = new javax.swing.JTable();
+        lblSalir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,7 +150,6 @@ public class FrmUsuario extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("$");
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         tb_Historial.setModel(new javax.swing.table.DefaultTableModel(
@@ -164,6 +164,16 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tb_Historial);
+
+        lblSalir.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblSalir.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/left-arrow.png"))); // NOI18N
+        lblSalir.setText("Log out");
+        lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSalirMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -197,6 +207,10 @@ public class FrmUsuario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblHistorial)
                 .addGap(161, 161, 161))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +233,9 @@ public class FrmUsuario extends javax.swing.JFrame {
                 .addComponent(lblHistorial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(lblSalir)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -230,7 +246,9 @@ public class FrmUsuario extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -263,7 +281,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
             if (saldo < cantidadARetirar || cantidadARetirar == 0 || cantidadARetirar < 0) {
                 JOptionPane.showMessageDialog(null, "¡No se puede hacer el retiro!");
-            }else {
+            } else {
                 if (cantidadARetirar % 5 == 0) {
 
                     Date date = new Date();
@@ -279,6 +297,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                         cuentas.setTransaccion(2);
                         cuentas.setFecha(date);
                         clsCuentas.AgregarCuentasUsuario(cuentas);
+                        txtRetiro.setText("");
                         Mostrartabla();
                         CalcularTotal();
                     } else if (opcion == JOptionPane.NO_OPTION) {
@@ -286,11 +305,26 @@ public class FrmUsuario extends javax.swing.JFrame {
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "¡Sólo puedes sacar cantidades como 5,10,15!");
+                    JOptionPane.showMessageDialog(null, "¡Sólo puedes sacar cantidades como 5,10,15,20!");
                 }
             }
         }
     }//GEN-LAST:event_btnRetirarActionPerformed
+
+    private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
+
+        String botones[] = {"Cerrar", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que quieres salir?", "Confirmar", 0, 0, null, botones, this);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            FrmLogin logout = new FrmLogin();
+            logout.setVisible(true);
+            this.dispose();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            System.out.println("¡Cancelado!");
+        }
+    }//GEN-LAST:event_lblSalirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -339,6 +373,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblHistorial;
+    private javax.swing.JLabel lblSalir;
     private javax.swing.JLabel lblTotalCuenta;
     private javax.swing.JTable tb_Historial;
     private javax.swing.JTextField txtRetiro;

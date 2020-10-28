@@ -5,7 +5,6 @@
  */
 package com.unab.edu.Vistas;
 
-
 import com.unab.edu.DAO.ClsCuentaUsuario;
 import com.unab.edu.DAO.ClsUsuario;
 import com.unab.edu.entidades.cuentasUsuario;
@@ -13,6 +12,7 @@ import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import com.unab.edu.entidades.usuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,12 +27,12 @@ public class FrmAdministrador extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         lblReciboUsuario.setText(FrmLogin.ennvioUsuario);
-        
+
         Calendar cal = Calendar.getInstance();
         jdcFecha.setCalendar(cal);
         DisplayMember();
     }
-    
+
     String valueMember[];
     int contador = 1;
 
@@ -56,7 +56,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
         cmbUsuario.setModel(cbdefault);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,6 +83,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lblReciboUsuario = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblSalir = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,12 +142,10 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Usuario a abonar:");
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         btnEnviar.setBackground(new java.awt.Color(0, 102, 102));
         btnEnviar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        btnEnviar.setForeground(new java.awt.Color(0, 0, 0));
         btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,6 +175,16 @@ public class FrmAdministrador extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("$");
 
+        lblSalir.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblSalir.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/left-arrow.png"))); // NOI18N
+        lblSalir.setText("Log out");
+        lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSalirMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
         pnPrincipal.setLayout(pnPrincipalLayout);
         pnPrincipalLayout.setHorizontalGroup(
@@ -202,9 +210,11 @@ public class FrmAdministrador extends javax.swing.JFrame {
                         .addGap(0, 243, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEnviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
+                        .addComponent(lblSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnPrincipalLayout.setVerticalGroup(
@@ -229,7 +239,9 @@ public class FrmAdministrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
-                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSalir))
                 .addContainerGap())
         );
 
@@ -260,15 +272,21 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
 
-        
-        ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
-        cuentasUsuario cuentas = new cuentasUsuario();
-        
-        cuentas.setSaldo(Double.parseDouble(txtAbono.getText()));
-        cuentas.setIdUsuario(Integer.parseInt(valueMember[cmbUsuario.getSelectedIndex()]));
-        cuentas.setTransaccion(1);
-        cuentas.setFecha(jdcFecha.getDate());
-        clsCuentas.AgregarCuentasUsuario(cuentas);
+        if (txtAbono.getText().isEmpty() || cmbUsuario.getSelectedIndex() < 1) {
+            JOptionPane.showMessageDialog(null, "¡Complete todos los campos para continuar!");
+        } else {
+            ClsCuentaUsuario clsCuentas = new ClsCuentaUsuario();
+            cuentasUsuario cuentas = new cuentasUsuario();
+
+            cuentas.setSaldo(Double.parseDouble(txtAbono.getText()));
+            cuentas.setIdUsuario(Integer.parseInt(valueMember[cmbUsuario.getSelectedIndex()]));
+            cuentas.setTransaccion(1);
+            cuentas.setFecha(jdcFecha.getDate());
+            clsCuentas.AgregarCuentasUsuario(cuentas);
+            txtAbono.setText("");
+            cmbUsuario.setSelectedIndex(0);
+        }
+
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void txtAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAbonoActionPerformed
@@ -278,6 +296,21 @@ public class FrmAdministrador extends javax.swing.JFrame {
     private void cmbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbUsuarioActionPerformed
+
+    private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
+
+        String botones[] = {"Cerrar", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que quieres salir?", "Confirmar", 0, 0, null, botones, this);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            FrmLogin logout = new FrmLogin();
+            logout.setVisible(true);
+            this.dispose();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            System.out.println("¡Cancelado!");
+        }
+    }//GEN-LAST:event_lblSalirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -330,6 +363,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblReciboUsuario;
+    private javax.swing.JLabel lblSalir;
     private javax.swing.JPanel pnPrincipal;
     private javax.swing.JTextField txtAbono;
     // End of variables declaration//GEN-END:variables

@@ -9,9 +9,7 @@ import com.unab.edu.Conexion.ConexionBd;
 import com.unab.edu.entidades.cuentasUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLXML;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -33,7 +31,7 @@ public class ClsCuentaUsuario {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 cuentasUsuario es = new cuentasUsuario();
-                es.setSaldo(rs.getInt("saldo"));
+                es.setSaldo(rs.getDouble("saldo"));
                 es.setTransaccion(rs.getInt("transaccion"));
                 es.setFecha(rs.getDate("fecha"));
 

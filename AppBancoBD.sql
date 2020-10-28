@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idUsuario` int NOT NULL AUTO_INCREMENT,
   `Usuario` varchar(45) DEFAULT NULL,
-  `Pass` varchar(500) DEFAULT NULL,
+  `PassWord` varchar(500) DEFAULT NULL,
   `tipoUsuario` int DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
   KEY `fkUsuario_idx` (`tipoUsuario`),
@@ -106,7 +106,7 @@ PPass varchar(500),
 PTipoUsuario int (11)
 )
 BEGIN
-insert into usuario (Usuario, Pass, tipoUsuario) values (PUsuario, md5(PPass), PTipoUsuario);
+insert into usuario (Usuario, PassWord, tipoUsuario) values (PUsuario, md5(PPass), PTipoUsuario);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -167,7 +167,7 @@ PPass varchar(500),
 PTipoUsuario int (11)
 )
 BEGIN
-select * from usuario where usuario = PUsuario AND PASS = md5(PPass) 
+select * from usuario where usuario = PUsuario AND PassWord = md5(PPass) 
 AND tipoUsuario = (PTipoUsuario); 
 END ;;
 DELIMITER ;
@@ -223,4 +223,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-25 22:53:06
+-- Dump completed on 2020-10-27 20:27:20

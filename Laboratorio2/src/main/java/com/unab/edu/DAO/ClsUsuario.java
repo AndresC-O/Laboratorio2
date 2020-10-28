@@ -27,7 +27,7 @@ public class ClsUsuario {
             while (rs.next()) {
                 usuario user = new usuario();
                 user.setUsuario(rs.getString("Usuario"));
-                user.setPass(rs.getString("Pass"));
+                user.setPass(rs.getString("PassWord"));
                 user.setIdTipoUsuario(rs.getInt("tipoUsuario"));
                 ListadoUsuario.add(user);
             }
@@ -77,7 +77,7 @@ public class ClsUsuario {
                 usuario user = new usuario();
                 user.setIdUsuario(rs.getInt("idUsuario"));
                 user.setUsuario(rs.getString("Usuario"));
-                user.setPass(rs.getString("Pass"));
+                user.setPass(rs.getString("PassWord"));
                 user.setIdTipoUsuario(rs.getInt("tipoUsuario"));
                 Lista.add(user);
             }
