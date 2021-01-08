@@ -231,7 +231,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
                 
             }
-            else{
+            else if (consulta == false){
                 JOptionPane.showMessageDialog(null,"¡Verifique los datos ingresados!");
             }
         }
